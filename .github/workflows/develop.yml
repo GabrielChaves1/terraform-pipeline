@@ -1,0 +1,21 @@
+name: DEV DEPLOY
+
+on:
+  push:
+    branches:
+      - develop
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      environment: dev
+      aws-assume-role-arn: arn:aws:iam::654654545342:role/github-actions-gabrielchaves1-pipeline
+      aws-region: sa-east-1
+      aws-statefile-s3-bucket: gabrielchaves1-sa-east-1-terraform-statefile
+      aws-lock-dynamodb-table: gabrielchaves1-sa-east-1-terraform-lock
+  
